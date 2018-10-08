@@ -3,5 +3,5 @@ set -e
 
 TAG="$1"
 
-docker push godarch/arch:latest
-docker push godarch/arch:$TAG
+docker push burkostya/arch:latest
+docker push burkostya/arch:$TAG
