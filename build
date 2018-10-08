@@ -17,5 +17,5 @@ if [ ! -e root.tar.gz ]; then
     rm -rf root.x86_64
 fi
 
-docker build --squash -t godarch/arch .
-docker tag godarch/arch godarch/arch:$TAG
+docker build --squash -t burkostya/arch .
+docker tag burkostya/arch burkostya/arch:$TAG
