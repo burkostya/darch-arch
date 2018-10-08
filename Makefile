@@ -8,7 +8,7 @@ CACHED=$(TAG)
 default: build
 
 build:
-	@echo "building arch"
+	@echo "building arch tag:$(TAG)"
 	@./build $(TAG)
 deploy:
 	@echo "logging into docker"
