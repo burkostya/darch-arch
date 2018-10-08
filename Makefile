@@ -13,6 +13,6 @@ build:
 deploy:
 	@echo "logging into docker"
 	@docker login -u $(LOGIN_USERNAME) -p $(LOGIN_PASSWORD)
-	@echo "deplying arch"
+	@echo "deploying arch"
 	@./deploy $(TAG)
 ci: build deploy
