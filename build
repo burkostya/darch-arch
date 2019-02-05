@@ -18,5 +18,4 @@ if [ ! -e root.tar.gz ]; then
 fi
 
 docker build --squash -t burkostya/arch .
-echo "${VERSION//\./-}"
 docker tag burkostya/arch burkostya/arch:${VERSION//\./-}

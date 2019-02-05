@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-VERSION=$VERSION
+VERSION=$1
 
 docker push burkostya/arch:latest
-echo "${VERSION//\./-}"
 docker push burkostya/arch:${VERSION//\./-}
