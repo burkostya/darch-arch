@@ -18,4 +18,4 @@ if [ ! -e root.tar.gz ]; then
 fi
 
 docker build --squash -t burkostya/arch .
-docker tag burkostya/arch burkostya/arch:$VERSION
+docker tag burkostya/arch burkostya/arch:${VERSION//\./-}

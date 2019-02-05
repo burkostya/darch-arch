@@ -4,4 +4,4 @@ set -e
 VERSION=$VERSION
 
 docker push burkostya/arch:latest
-docker push burkostya/arch:$VERSION
+docker push burkostya/arch:${VERSION//\./-}
