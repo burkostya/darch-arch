@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-TAG="$1"
+VERSION=$VERSION
 
 docker push burkostya/arch:latest
-docker push burkostya/arch:$TAG
+docker push burkostya/arch:$VERSION
