@@ -1,0 +1,15 @@
+kind: pipeline
+steps:
+  - name: build
+    image: docker
+    environment:
+      - DOCKER_HOST=unix:///drone/docker.sock
+      - VERSION=2019.04.01
+    commands:
+      - make ci
+
+services:
+  docker:
+    image: docker:dind
+    privileged: true
+    command: [ '-H', 'unix:///drone/docker.sock' ]
