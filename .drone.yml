@@ -5,7 +5,7 @@ steps:
 - name: base
   image: alpine:3.9.3
   environment:
-    VERSION: 2019.04.01
+    VERSION: 2019.05.01
   commands:
     - apk add curl
     - curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
@@ -18,10 +18,6 @@ steps:
 
 - name: build
   image: plugins/docker
-  environment:
-    VERSION: 2019-04-01
-    USER:
-      from_secret: DOCKER_LOGIN_USERNAME
   settings:
     username: 
       from_secret: DOCKER_LOGIN_USERNAME
@@ -30,7 +26,7 @@ steps:
     repo: burkostya/arch
     tags: 
       - latest
-      - 2019-04-01
+      - 2019-05-01
   when:
     branch:
     - master
