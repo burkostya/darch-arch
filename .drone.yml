@@ -26,8 +26,10 @@ steps:
     PASS:
       from_secret: DOCKER_LOGIN_PASSWORD
   settings:
-    username: $USER
-    password: $PASS
+    username: 
+      from_secret: DOCKER_LOGIN_USERNAME
+    password: 
+      from_secret: DOCKER_LOGIN_PASSWORD
     repo: $USER/arch
     tags: [ latest, $VERSION ]
   # commands:
