@@ -1,15 +1,28 @@
 kind: pipeline
-steps:
-  - name: build
-    image: docker
-    environment:
-      - DOCKER_HOST=unix:///drone/docker.sock
-      - VERSION=2019.04.01
-    commands:
-      - make ci
+name: default
 
-services:
-  docker:
-    image: docker:dind
-    privileged: true
-    command: [ '-H', 'unix:///drone/docker.sock' ]
+steps:
+- name: build
+  image: docker
+  environment:
+    - DOCKER_HOST=unix:///drone/docker.sock
+    - VERSION=2019.04.01
+  commands:
+    - curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
+    - rm -rf root.x86_64
+    - tar xpzf arch.tar.gz
+    - pushd root.x86_64
+    - tar -czpf ../root.tar.gz *
+    - popd
+    - rm -rf root.x86_64
+    - docker build --squash -t burkostya/arch .
+    - docker tag burkostya/arch burkostya/arch:${VERSION//\./-}
+  when:
+    branch:
+    - master
+
+# services:
+#   docker:
+#     image: docker:dind
+#     privileged: true
+#     command: [ '-H', 'unix:///drone/docker.sock' ]
