@@ -16,7 +16,7 @@ steps:
     - popd
     - rm -rf root.x86_64
     - docker build --squash -t burkostya/arch .
-    - docker tag burkostya/arch burkostya/arch:${VERSION//\./-}
+    - docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}
   when:
     branch:
     - master
