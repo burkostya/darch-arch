@@ -1,7 +1,6 @@
 kind: pipeline
 name: default
 
-
 steps:
 - name: base
   image: alpine:3.9.3
@@ -18,9 +17,19 @@ steps:
     - rm -rf root.x86_64
 
 - name: build
-  image: docker
+  image: plugins/docker
   environment:
     # - DOCKER_HOST=unix:///drone/docker.sock
+    VERSION: 2019-04-01
+    USER:
+      from_secret: DOCKER_LOGIN_USERNAME
+    PASS:
+      from_secret: DOCKER_LOGIN_PASSWORD
+  settings:
+    username: $USER
+    password: $PASS
+    repo: $USER/arch
+    tags: [ latest, $VERSION ]
   commands:
     - docker build --squash -t burkostya/arch .
     - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
