@@ -30,9 +30,9 @@ steps:
     password: $PASS
     repo: $USER/arch
     tags: [ latest, $VERSION ]
-  commands:
-    - docker build --squash -t burkostya/arch .
-    - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
+  # commands:
+  #   - docker build --squash -t burkostya/arch .
+  #   - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
   when:
     branch:
     - master
