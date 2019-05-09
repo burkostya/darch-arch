@@ -12,9 +12,9 @@ steps:
     - curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
     - rm -rf root.x86_64
     - tar xpzf arch.tar.gz
-    - pushd root.x86_64
+    - cd root.x86_64
     - tar -czpf ../root.tar.gz *
-    - popd
+    - cd ..
     - rm -rf root.x86_64
 
 - name: build
