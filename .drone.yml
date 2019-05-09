@@ -21,17 +21,15 @@ steps:
   environment:
     # - DOCKER_HOST=unix:///drone/docker.sock
     VERSION: 2019-04-01
-    USER:
-      from_secret: DOCKER_LOGIN_USERNAME
-    PASS:
-      from_secret: DOCKER_LOGIN_PASSWORD
   settings:
     username: 
       from_secret: DOCKER_LOGIN_USERNAME
     password: 
       from_secret: DOCKER_LOGIN_PASSWORD
-    repo: $USER/arch
-    tags: [ latest, $VERSION ]
+    repo: ${USER}/arch
+    tags: 
+      - latest
+      - ${VERSION}
   # commands:
   #   - docker build --squash -t burkostya/arch .
   #   - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
