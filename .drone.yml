@@ -1,13 +1,14 @@
 kind: pipeline
 name: default
 
+environment:
+  VERSION: 2019.04.01
+
 steps:
-- name: build
-  image: docker
-  environment:
-    # - DOCKER_HOST=unix:///drone/docker.sock
-    VERSION: 2019.04.01
+- name: base
+  image: alpine:3.9.3
   commands:
+    - apk add curl
     - curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
     - rm -rf root.x86_64
     - tar xpzf arch.tar.gz
@@ -15,6 +16,12 @@ steps:
     - tar -czpf ../root.tar.gz *
     - popd
     - rm -rf root.x86_64
+
+- name: build
+  image: docker
+  environment:
+    # - DOCKER_HOST=unix:///drone/docker.sock
+  commands:
     - docker build --squash -t burkostya/arch .
     - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
   when:
@@ -22,7 +29,7 @@ steps:
     - master
 
 # services:
-#   docker:
-#     image: docker:dind
-#     privileged: true
-#     command: [ '-H', 'unix:///drone/docker.sock' ]
+# - name: docker
+#   image: docker:dind
+#   privileged: true
+#   command: [ '-H', 'unix:///drone/docker.sock' ]
