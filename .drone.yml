@@ -28,9 +28,10 @@ steps:
       from_secret: DOCKER_LOGIN_USERNAME
     password: 
       from_secret: DOCKER_LOGIN_PASSWORD
-    repo: ${USER}/arch
+    repo: burkostya/arch
     tags: 
-      - ${VERSION}
+      - latest
+      - 2019-04-01
   # commands:
   #   - docker build --squash -t burkostya/arch .
   #   - "docker tag burkostya/arch burkostya/arch:${VERSION//\\./-}"
