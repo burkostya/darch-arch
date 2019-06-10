@@ -2,7 +2,7 @@ kind: pipeline
 name: default
 
 steps:
-- name: base
+- name: build
   image: alpine:3.9.3
   environment:
     VERSION: 2019.05.02
@@ -16,7 +16,7 @@ steps:
     - cd ..
     - rm -rf root.x86_64
 
-- name: build
+- name: publish
   image: plugins/docker
   settings:
     username: 
