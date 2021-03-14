@@ -5,7 +5,7 @@ steps:
 - name: build
   image: alpine:3.12.4
   environment:
-    VERSION: 2021.02.01
+    VERSION: 2021.03.01
   commands:
     - apk add curl
     - curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
@@ -26,7 +26,7 @@ steps:
     repo: burkostya/arch
     tags: 
       - latest
-      - 2021-02-01
+      - 2021-03-01
   when:
     branch:
     - master
