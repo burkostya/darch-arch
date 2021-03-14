@@ -3,7 +3,7 @@ name: default
 
 steps:
 - name: build
-  image: alpine:3.11.5
+  image: alpine:3.12.4
   environment:
     VERSION: 2021.02.01
   commands:
