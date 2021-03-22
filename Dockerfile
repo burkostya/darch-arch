@@ -24,6 +24,7 @@ RUN echo "Server = https://arch.mirror.square-r00t.net/\$repo/os/\$arch" >> /etc
 # The bootstrap may have outdated packages, update everything.
 RUN ls -la /etc
 COPY pacman.conf /etc/pacman.conf
-RUN pacman-key --init && pacman-key --populate archlinux
+RUN pacman-key --init 
+RUN pacman-key --populate archlinux
 RUN pacman -Syu --noconfirm
 RUN rm -r /var/cache/pacman/pkg
