@@ -1,0 +1,70 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  bootstrap:
+    name: Bootstrap FS
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: install curl
+        run: apk add curl
+      - name: get bootstrap archive
+        env:
+          VERSION: 2021.03.01
+        run: curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
+      - name: untar
+        run: tar xpzf arch.tar.gz
+      - name: cd root
+        run: cd root.x86_64
+      - name: tar
+        run: tar -czpf ../root.tar.gz *
+      - name: cd up
+        run: cd ..
+      - name: cleanup
+        run: rm -rf root.x86_64
+      - name: Upload FS archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: fs
+          path: root.tar.gz
+
+  image:
+    name: Build and push docker image
+    runs-on: ubuntu-latest
+    needs: fs
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: fs
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: burkostya/arch
+          tag-custom: 2021-03-01
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          push: true
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
