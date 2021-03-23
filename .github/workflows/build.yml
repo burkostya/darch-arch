@@ -16,18 +16,19 @@ jobs:
         env:
           VERSION: 2021.03.01
         run: curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
+      - name: prepare dir
+        run: mkdir -p /tmp/bootstrap
       - name: untar
+        working-directory: /tmp/bootstrap
         run: tar xpzf arch.tar.gz
       - name: tar
-        working-directory: ./root.x86_64
-        run: tar -czpf ../root.tar.gz *
-      - name: cleanup
-        run: rm -rf root.x86_64
+        working-directory: /tmp/bootstrap/root.x86_64
+        run: tar -czpf /tmp/root.tar.gz *
       - name: Upload FS archive
         uses: actions/upload-artifact@v2
         with:
           name: fs
-          path: root.tar.gz
+          path: /tmp/root.tar.gz
 
   image:
     name: Build and push docker image
