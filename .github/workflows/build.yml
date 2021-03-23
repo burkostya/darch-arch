@@ -11,7 +11,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: install curl
-        run: apt install curl
+        run: sudo apt install curl
       - name: get bootstrap archive
         env:
           VERSION: 2021.03.01
