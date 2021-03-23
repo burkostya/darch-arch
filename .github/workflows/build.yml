@@ -18,12 +18,9 @@ jobs:
         run: curl -o arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
       - name: untar
         run: tar xpzf arch.tar.gz
-      - name: cd root
-        run: cd root.x86_64
       - name: tar
+        working-directory: ./root.x86_64
         run: tar -czpf ../root.tar.gz *
-      - name: cd up
-        run: cd ..
       - name: cleanup
         run: rm -rf root.x86_64
       - name: Upload FS archive
