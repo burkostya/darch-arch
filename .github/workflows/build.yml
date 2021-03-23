@@ -20,7 +20,7 @@ jobs:
         run: curl -o /tmp/bootstrap/arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
       - name: untar
         working-directory: /tmp/bootstrap
-        run: tar xpzf arch.tar.gz
+        run: sudo tar xpzf arch.tar.gz
       - name: tar
         working-directory: /tmp/bootstrap/root.x86_64
         run: tar -czpf /tmp/root.tar.gz *
