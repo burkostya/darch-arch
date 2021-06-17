@@ -16,7 +16,7 @@ jobs:
         run: mkdir -p /tmp/bootstrap
       - name: get bootstrap archive
         env:
-          VERSION: 2021.04.01
+          VERSION: 2021.06.01
         run: curl -o /tmp/bootstrap/arch.tar.gz -L https://mirror.yandex.ru/archlinux/iso/$VERSION/archlinux-bootstrap-$VERSION-x86_64.tar.gz
       - name: untar
         working-directory: /tmp/bootstrap
@@ -46,7 +46,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: burkostya/arch
-          tag-custom: 2021-04-01
+          tag-custom: 2021-06-01
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
